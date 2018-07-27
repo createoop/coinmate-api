@@ -79,5 +79,6 @@ class Coinmate
     public function balances()
     {
 
+        return [];
     }
 }
