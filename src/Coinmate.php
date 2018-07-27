@@ -75,4 +75,9 @@ class Coinmate
             'minutesIntoHistory' => $minutes
         ]);
     }
+
+    public function balances()
+    {
+
+    }
 }
