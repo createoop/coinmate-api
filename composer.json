@@ -1,0 +1,12 @@
+{
+  "name": "createoop/coinmate-api",
+  "description": "Coinmate Api - PHP",
+  "require": {
+    "php": "^5.2"
+  },
+  "autoload": {
+    "psr-0": {
+      "CoinmateApi": "src/"
+    }
+  }
+}
