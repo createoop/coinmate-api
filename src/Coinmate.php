@@ -140,4 +140,18 @@ class Coinmate
         ]);
         return $this->requestor->sendRequest("{$this->url}/openOrders", "post", $request);
     }
+
+    /**
+     * Cancel order.
+     *
+     * @param  string  $orderId
+     * @return array
+     */
+    public function cancelOrder($orderId)
+    {
+        $request = $this->splitWithCredentials([
+            'orderId' => $orderId,
+        ]);
+        return $this->requestor->sendRequest("{$this->url}/cancelOrder", "post", $request);
+    }
 }
