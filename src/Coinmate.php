@@ -62,6 +62,13 @@ class Coinmate
         return $request;
     }
 
+    /**
+     * Get specified currency pair rates.
+     *
+     * @param string $from
+     * @param string $to
+     * @return array
+     */
     public function getTicker($from = null, $to = null)
     {
         return $this->requestor->sendRequest("{$this->url}/ticker", "get", [
@@ -69,6 +76,12 @@ class Coinmate
         ]);
     }
 
+    /**
+     * Get last transactions.
+     *
+     * @param  integer  $minutes
+     * @return array
+     */
     public function transactions($minutes = 10)
     {
         return $this->requestor->sendRequest("{$this->url}/transactions", "get", [
@@ -76,14 +89,41 @@ class Coinmate
         ]);
     }
 
+    /**
+     * Account balances.
+     *
+     * @return array
+     */
     public function balances()
     {
         return $this->requestor->sendRequest("{$this->url}/balances", "post", $this->splitWithCredentials());
     }
 
+    /**
+     * Get account transaction history.
+     *
+     * @param array $request
+     * @return array
+     */
     public function getTransactionHistory(array $request = [])
     {
         $request = $this->splitWithCredentials($request);
         return $this->requestor->sendRequest("{$this->url}/transactionHistory", "post", $request);
+    }
+
+    /**
+     * Order history.
+     *
+     * @param  string  $currencyPair
+     * @param  integer  $limit
+     * @return array
+     */
+    public function orderHistory($currencyPair, $limit = 5)
+    {
+        $request = $this->splitWithCredentials([
+            'currencyPair' => $currencyPair,
+            'limit' => $limit
+        ]);
+        return $this->requestor->sendRequest("{$this->url}/orderHistory", "post", $request);
     }
 }
