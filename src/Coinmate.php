@@ -80,4 +80,10 @@ class Coinmate
     {
         return $this->requestor->sendRequest("{$this->url}/balances", "post", $this->splitWithCredentials());
     }
+
+    public function getTransactionHistory(array $request = [])
+    {
+        $request = $this->splitWithCredentials($request);
+        return $this->requestor->sendRequest("{$this->url}/transactionHistory", "post", $request);
+    }
 }
