@@ -126,4 +126,18 @@ class Coinmate
         ]);
         return $this->requestor->sendRequest("{$this->url}/orderHistory", "post", $request);
     }
+
+    /**
+     * List of open orders.
+     *
+     * @param  string  $currencyPair
+     * @return array
+     */
+    public function openOrders($currencyPair)
+    {
+        $request = $this->splitWithCredentials([
+            'currencyPair' => $currencyPair,
+        ]);
+        return $this->requestor->sendRequest("{$this->url}/openOrders", "post", $request);
+    }
 }
