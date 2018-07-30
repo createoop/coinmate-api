@@ -49,7 +49,13 @@ class Coinmate
         $this->signature = strtoupper($tmp);
     }
 
-    private function splitWithCredentials(array $request = [])
+    /**
+     * Implode request array with user credentials
+     *
+     * @param array $request
+     * @return array
+     */
+    private function implodeWithCredentials(array $request = [])
     {
         $request['clientId'] = $this->clientId;
         $request['publicKey'] = $this->publicKey;
@@ -96,7 +102,7 @@ class Coinmate
      */
     public function balances()
     {
-        return $this->requestor->sendRequest("{$this->url}/balances", "post", $this->splitWithCredentials());
+        return $this->requestor->sendRequest("{$this->url}/balances", "post", $this->implodeWithCredentials());
     }
 
     /**
@@ -107,7 +113,7 @@ class Coinmate
      */
     public function getTransactionHistory(array $request = [])
     {
-        $request = $this->splitWithCredentials($request);
+        $request = $this->implodeWithCredentials($request);
         return $this->requestor->sendRequest("{$this->url}/transactionHistory", "post", $request);
     }
 
@@ -120,7 +126,7 @@ class Coinmate
      */
     public function orderHistory($currencyPair, $limit = 5)
     {
-        $request = $this->splitWithCredentials([
+        $request = $this->implodeWithCredentials([
             'currencyPair' => $currencyPair,
             'limit' => $limit
         ]);
@@ -135,7 +141,7 @@ class Coinmate
      */
     public function openOrders($currencyPair)
     {
-        $request = $this->splitWithCredentials([
+        $request = $this->implodeWithCredentials([
             'currencyPair' => $currencyPair,
         ]);
         return $this->requestor->sendRequest("{$this->url}/openOrders", "post", $request);
@@ -149,7 +155,7 @@ class Coinmate
      */
     public function cancelOrder($orderId)
     {
-        $request = $this->splitWithCredentials([
+        $request = $this->implodeWithCredentials([
             'orderId' => $orderId,
         ]);
         return $this->requestor->sendRequest("{$this->url}/cancelOrder", "post", $request);
