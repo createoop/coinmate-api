@@ -18,10 +18,10 @@ class Coinmate
 
     function __construct($publicKey = null, $privateKey = null, $clientId = null)
     {
-        $this->requestor = new Requestor();
         $this->publicKey = $publicKey;
         $this->privateKey = $privateKey;
         $this->clientId = $clientId;
+        $this->requestor = new Requestor();
     }
 
     public function setUrl($url)
@@ -49,14 +49,14 @@ class Coinmate
         $this->signature = strtoupper($tmp);
     }
 
-    private function splitWithCredentials(array $request)
+    private function splitWithCredentials(array $request = [])
     {
         $request['clientId'] = $this->clientId;
         $request['publicKey'] = $this->publicKey;
-        $request['nonce'] = $this->nonce;
 
         $this->generateSignature();
 
+        $request['nonce'] = $this->nonce;
         $request['signature'] = $this->signature;
 
         return $request;
@@ -78,7 +78,6 @@ class Coinmate
 
     public function balances()
     {
-
-        return [];
+        return $this->requestor->sendRequest("{$this->url}/balances", "post", $this->splitWithCredentials());
     }
 }

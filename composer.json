@@ -2,11 +2,11 @@
   "name": "createoop/coinmate-api",
   "description": "Coinmate Api - PHP",
   "require": {
-    "php": "^5.2"
+    "php": ">=5.6"
   },
   "autoload": {
-    "psr-0": {
-      "CoinmateApi": "src/"
+    "psr-4": {
+      "CoinmateApi\\": "src/"
     }
   }
 }

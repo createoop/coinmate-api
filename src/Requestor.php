@@ -2,8 +2,7 @@
 
 class Requestor
 {
-
-    public function sendRequest($path, $method, array $request)
+    public function sendRequest($path, $method, array $request = [])
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -20,7 +19,7 @@ class Requestor
             break;
 
             case "get":
-                curl_setopt($ch, CURLOPT_URL, $path."?".http_build_query($request));
+                curl_setopt($ch, CURLOPT_URL, "{$path}?".http_build_query($request));
             break;
         }
 
@@ -41,6 +40,5 @@ class Requestor
 
         return $result;
     }
-
 }
 
