@@ -24,16 +24,32 @@ class Coinmate
         $this->requestor = new Requestor();
     }
 
+    /**
+     * Set Coinmate API URL
+     *
+     * @param string $url
+     * @return $this
+     */
     public function setUrl($url)
     {
         $this->url = $url;
+        return $this;
     }
 
+    /**
+     * Set credentials for Coinmate User
+     *
+     * @param string $publicKey
+     * @param string $privateKey
+     * @param string $clientId
+     * @return $this
+     */
     public function setCredentials($publicKey, $privateKey, $clientId)
     {
         $this->publicKey = $publicKey;
         $this->privateKey = $privateKey;
         $this->clientId = $clientId;
+        return $this;
     }
 
     private function  generateSignature()
@@ -170,8 +186,42 @@ class Coinmate
     public function cancelOrderWithInfo($orderId)
     {
         $request = $this->implodeWithCredentials([
-                'orderId' => $orderId,
+            'orderId' => $orderId,
         ]);
         return $this->requestor->sendRequest("{$this->url}/cancelOrderWithInfo", "post", $request);
+    }
+
+    /**
+     * Creates new order for buying of type limit order.
+     *
+     * @param float $amount
+     * @param float $price
+     * @param string $currencyPair
+     */
+    public function buyLimitOrder($amount, $price, $currencyPair)
+    {
+        $request = $this->implodeWithCredentials([
+            'amount' => $amount,
+            'price' => $price,
+            'currencyPair' => $currencyPair
+        ]);
+        return $this->requestor->sendRequest("{$this->url}/buyLimit", "post", $request);
+    }
+
+    /**
+     * Creates new order for selling of type limit order
+     *
+     * @param float $amount
+     * @param float $price
+     * @param string $currencyPair
+     */
+    public function sellLimitOrder($amount, $price, $currencyPair)
+    {
+        $request = $this->implodeWithCredentials([
+            'amount' => $amount,
+            'price' => $price,
+            'currencyPair' => $currencyPair
+        ]);
+        return $this->requestor->sendRequest("{$this->url}/sellLimit", "post", $request);
     }
 }
