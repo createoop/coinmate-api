@@ -160,4 +160,18 @@ class Coinmate
         ]);
         return $this->requestor->sendRequest("{$this->url}/cancelOrder", "post", $request);
     }
+
+    /**
+     * Cancel order with info.
+     *
+     * @param  string  $orderId
+     * @return array
+     */
+    public function cancelOrderWithInfo($orderId)
+    {
+        $request = $this->implodeWithCredentials([
+                'orderId' => $orderId,
+        ]);
+        return $this->requestor->sendRequest("{$this->url}/cancelOrderWithInfo", "post", $request);
+    }
 }
